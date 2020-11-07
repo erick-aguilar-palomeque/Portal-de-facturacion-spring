@@ -34,36 +34,7 @@
         <input type="text" id="txt_nombre">
         
         <button id="btn_guardar" OnClick="insert()"> Guardar </button>
-        <!--<button id="btn_guardar" OnClick="get()"> Ver </button>-->
-        
-        <!--
-        <table id="tabla" class="table table-striped table-bordered" style="width:100%">
-            <thead>
-                <tr>
-                    <th>id</th>
-                </tr>
-            </thead>
-        </table>
-         Nombre_Prueba
-        <input type="text" id="txt_nombre2">
-        
-        <button id="btn_guardar2" OnClick="insert2()"> Guardar </button>
-        <button id="btn_guardar2" OnClick="get()"> Ver </button>
-        
-        <table id="tabla2" class="table table-striped table bordered" style="width:100%">
-            <thead>
-                <tr>
-                    <th>id_prueba</th>
-                    <th>nombre_prueba</th>
-                </tr>
-            </thead>
-            
-        </table>-->
         
     </body>
-   
-    <script>
-//        get();
-    </script>
 </html>
 
