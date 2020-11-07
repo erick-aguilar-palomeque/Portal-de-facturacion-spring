@@ -4,18 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap jquery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>        
+        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+        <script src="${pageContext.request.contextPath}/js/utileria.js"></script>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-    <!-- bootstrap -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
-    <!-- <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> -->
-    <!-- <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script> -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/consultaFacturasStyle.css">
 
     <title>Document</title>
@@ -97,6 +95,21 @@
             </div>
             <!--Fin filtros -->
 
+            <br><br>
+            <button id="btn_guardar" OnClick="get()"> Ver </button>    
+            <div class="tablas">
+                <table id="tabla" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Fc_Folio</th>
+                            <th>Fc_ID</th>
+                            <th>Fc_Factura</th>
+                            <th>Fc_Concepto</th>
+                         </tr>
+                    </thead>
+                </table>
+            </div>
+            
             <div class="table table-striped table-bordered">
                 <table>
                     <tr class="encabezado">
@@ -299,13 +312,6 @@
     <!--fin pseudo body-->
 
     <script src="${pageContext.request.contextPath}/js/menu.js"></script>
-    <!-- bootstrp -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <!-- <script src="./src/bootstrap-input-spinner.js"></script> -->
-
 </body>
 
 </html>
