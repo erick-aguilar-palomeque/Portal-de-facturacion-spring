@@ -1,82 +1,31 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-    function insert()
-    {
-        $.ajax({
-            url : 'insert.do',
-            type : "POST",
-            data: {},
-            beforeSend : function(xhr) {
-            },
-            success : function(jsonResponse, textStatus, jqXHR) {
-                alert(jsonResponse);
-                get();
-            },
-            error : function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-            }
-        });
-    }
-    
-    function insert2()
-    {
-        $.ajax({
-            url : 'insert2.do',
-            type : "POST",
-            data: {nombre_prueba:$("#txt_nombre2").val()},
-            beforeSend : function(xhr) {
-            },
-            success : function(jsonResponse, textStatus, jqXHR) {
-                alert(jsonResponse);
-                get();
-            },
-            error : function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-            }
-        });
-    }
-
-    
     var tabla=null;
-    var tabla2=null;
-    function get()
-    {
-        /*$.ajax({
-            url : 'get.do',
-            type : "POST",
-            data: {},
-            beforeSend : function(xhr) {
-            },
-            success : function(jsonResponse, textStatus, jqXHR) {
-                alert(jsonResponse);
-            },
-            error : function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-            }
-        });*/
-        
+      function get()
+    {        
+        console.log("entro a get")
         if(tabla!=null){tabla.destroy();}
-            tabla=$('#tabla').DataTable( {
-                "ajax": "select.do",
-                "columns": [
-                    { "data": "id" }
+            tabla=$('#tabla-facturas').DataTable( {searching: false,
+                "ajax": "consultarFacturas.do",
+                "columns": [{"render": function () {
+                           return '<input type="checkbox">'}},
+                    {data: "Folio Fiscal" },
+                    {data: "RFC Emisor"},
+                    {data: "RFC del cliente"},
+                    {data: "Nombre del cliente"},
+                    {data: "Serie de facturacion"},
+                    {data: "Fecha y hora de Emision"},
+                    {"render": function () {
+                           return '<span>Pendiente</span>'}},
+                    {data: "Estado"},
+                    {"render": function () {
+                           return '<i class="icon-doc-inv"></i>'}},
+                    {"render": function () {
+                           return '<button class="boton-table">PDF</button>\n\
+<button class="boton-table">XML</button>'}},
                 ]
         } );
-        
-//        if(tabla2!=null){tabla2.destroy();}//si la tabla esta vacia la destruimos
-//            tabla2=$('#tabla2').DataTable({
-//                "ajax": "select2.do",
-//                "columns": [
-//                    {data: "id_prueba"},
-//                    {data: "nombre_prueba"}                 
-//                ]
-//            });
-        
-        
+        const table = document.getElementById('tabla-facturas');
+        table.style.setProperty('width',`${100}%`)
     }
+    
     
     
