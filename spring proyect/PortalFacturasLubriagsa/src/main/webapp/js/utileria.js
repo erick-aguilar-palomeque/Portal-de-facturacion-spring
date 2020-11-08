@@ -13,8 +13,7 @@
                     {data: "Nombre del cliente"},
                     {data: "Serie de facturacion"},
                     {data: "Fecha y hora de Emision"},
-                    {"render": function () {
-                           return '<span>Pendiente</span>'}},
+                    {data: "Total"},
                     {data: "Estado"},
                     {"render": function () {
                            return '<i class="icon-doc-inv"></i>'}},
