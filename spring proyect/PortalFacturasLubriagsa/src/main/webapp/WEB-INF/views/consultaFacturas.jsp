@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +12,9 @@
         <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
         <script src="${pageContext.request.contextPath}/js/utileria.js"></script>
+        <!--PDF-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+        <!--<script src="${pageContext.request.contextPath}/js/pdfGenerator.js" type="module"></script>-->
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
@@ -56,7 +60,7 @@
                     <legend>Filtros</legend>
                     <div class="up">
                         <div class="anio">
-                            Año:
+                            AÃ±o:
                             <input type="number" value="2020" min="2000" max="2020" step="1">
                         </div>
                         <div class="mes">
@@ -64,7 +68,7 @@
                             <select name="anio-mes" id="anio-mes" class="select"></select>
                         </div>
                         <div class="dia">
-                            Día:
+                            DÃ­a:
                             <input type="number" value="1" min="1" max="31" step="1">
                         </div>
                         <div class="hora-inicial">
@@ -94,199 +98,102 @@
                 </fieldset>
             </div>
             <!--Fin filtros -->
-
-            <br><br>
-            <button id="btn_guardar" OnClick="get()"> Ver </button>    
-            <div class="tablas">
-                <table id="tabla" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Fc_Folio</th>
-                            <th>Fc_ID</th>
-                            <th>Fc_Factura</th>
-                            <th>Fc_Concepto</th>
-                         </tr>
-                    </thead>
-                </table>
-            </div>
             
-            <div class="table table-striped table-bordered">
-                <table>
-                    <tr class="encabezado">
+            <button id="btn_guardar" class="boton-generico" OnClick="get()"> Ver </button>   
+            <button id="btn_generate_pdf" class="boton-generico" OnClick="generatePdf()"> Generar pdf</button> 
+            <div class="table">
+                <table id="tabla-facturas" class="table-bordered table-hover">
+                <!--<table id="tabla-facturas" class= "table table-bordered">-->
+                    <thead>
+                        <tr class="encabezado">
 
-                        <td id="seleccionar">
-                            <div class="seleccionar">
-                                <input type="checkbox">
-                            </div>
-                        </td>
-                        <td id="folio-fiscal">
-                            <div class="folio-fiscal">
-                                <span>Folio fiscal</span>
-                                <input type="text">
-                            </div>
-                        </td>
-                        <td id="rfc-emisor">
-                            <div class="rfc-emisor">
-                                <span>RFC emisor</span>
-                                <input type="text">
-                            </div>
-                        </td>
-                        <td id="descripcion">
-                            <div class="descripcion">
-                                <span>Descripción</span>
-                                <input type="text">
-                            </div>
-                        </td>
-                        <td id="fecha-hora-emision">
-                            <div class="fecha-hora-emision">
-                                <span>Fecha y hora de emisión</span>
-                            </div>
-                        </td>
-                        <td id="status">
-                            <div class="status">
-                                <span>Status</span>
-                                <select name="status" id="status"></select>
-                            </div>
-                        </td>
-                        <td id="visualizar">
-                            <div class="visualizar">
-                                <span>Visualizar</span>
-                            </div>
-                        </td>
-                        <td id="descargar">
-                            <div class="descargar">
-                                <span>Descargar</span>
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox">
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <i class="icon-doc-inv"></i>
-                        </td>
-                        <td>
-                            <button class="boton-table">PDF
-                            </button>
-                            <button class="boton-table">XML
-                            </button>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox">
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <i class="icon-doc-inv"></i>
-                        </td>
-                        <td>
-                            <button class="boton-table">PDF
-                            </button>
-                            <button class="boton-table">XML
-                            </button>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox">
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <i class="icon-doc-inv"></i>
-                        </td>
-                        <td>
-                            <button class="boton-table">PDF
-                            </button>
-                            <button class="boton-table">XML
-                            </button>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox">
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <i class="icon-doc-inv"></i>
-                        </td>
-                        <td>
-                            <button class="boton-table">PDF
-                            </button>
-                            <button class="boton-table">XML
-                            </button>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox">
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <i class="icon-doc-inv"></i>
-                        </td>
-                        <td>
-                            <button class="boton-table">PDF
-                            </button>
-                            <button class="boton-table">XML
-                            </button>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox">
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <i class="icon-doc-inv"></i>
-                        </td>
-                        <td>
-                            <button class="boton-table">PDF
-                            </button>
-                            <button class="boton-table">XML
-                            </button>
-
-                        </td>
-                    </tr>
-
-                    <!-- <thead>
-
+                            <th id="seleccionar">
+                                <div class="seleccionar">
+                                    <input type="checkbox">
+                                </div>
+                            </th>
+                            <th id="folio-fiscal">
+                                <div class="folio-fiscal">
+                                    <span>Folio fiscal</span>
+                                    <input type="text">
+                                </div>
+                            </th>
+                            <th id="rfc-emisor">
+                                <div class="rfc-emisor">
+                                    <span>RFC emisor</span>
+                                    <input type="text">
+                                </div>
+                            </th>
+                            <th id="rfc-cliente">
+                                <div class="rfc-cliente">
+                                    <span>RFC del cliente</span>
+                                    <input type="text">
+                                </div>
+                            </th>
+                            <th id="nombre-cliente">
+                                <div class="nombre-cliente">
+                                    <span>Nombre del cliente</span>
+                                    <input type="text">
+                                </div>
+                            </th>
+                            <th id="serie-facturacion">
+                                <div class="serie-facturacion">
+                                    <span>Serie de facturacion</span>
+                                    <input type="text">
+                                </div>
+                            </th>
+                            <th id="fecha-hora-emision">
+                                <div class="fecha-hora-emision">
+                                    <span>Fecha y hora de EmisiÃ³n</span>
+                                </div>
+                            </th>
+                            <th id="total">
+                                <div class="total">
+                                    <span>Total</span>
+                                </div>
+                            </th>
+                            <th id="status">
+                                <div class="status">
+                                    <span>Estado</span>
+                                    <select name="status" id="status"></select>
+                                </div>
+                            </th>
+                            <th id="visualizar">
+                                <div class="visualizar">
+                                    <span>Visualizar</span>
+                                </div>
+                            </th>
+                            <th id="descargar">
+                                <div class="descargar">
+                                    <span>Descargar</span>
+                                </div>
+                            </th>
+                        </tr>                        
                     </thead>
-                    <tbody>
-
-                    </tbody> -->
+<!--                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="checkbox">
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <i class="icon-doc-inv"></i>
+                            </td>
+                            <td>
+                                <button class="boton-table">PDF
+                                </button>
+                                <button class="boton-table">XML
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>-->
                 </table>
             </div>
             <!--fin tabla-->
@@ -298,6 +205,30 @@
                 <button class="boton-generico">XML
                 </button>
             </div>
+            
+            <div>
+                <object data="${pageContext.request.contextPath}/pdfs/pdf.pdf" type="application/pdf" width="700" height="400">
+                    alt : <a href="test.pdf">pdf.pdf</a>
+                </object>
+            </div>  
+            
+            <div id="botones-factura">
+                <a href="${pageContext.request.contextPath}/pdfs/pdf.pdf" download rel="noopener noreferrer" target="_blank">
+                    <button  class="boton-generico" > PDF </button>   
+                </a>
+                <button  class="boton-generico" > XML </button>   
+                        
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
 
             <!-- <div class="modal-envio-facturas" id="open-modal-uno">
                 <a href="#close">
@@ -310,7 +241,17 @@
         <!--fin contentenido-->
     </div>
     <!--fin pseudo body-->
-
+<!--    <button onclick="createPdf()">Crear</button>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+        <script> 
+            function createPdf(){
+                const doc = new jsPDF();
+                doc.text("Hello world!", 10, 10);
+                doc.save("a4.pdf");
+                console.log("termino")
+            }
+        </script>-->
+            
     <script src="${pageContext.request.contextPath}/js/menu.js"></script>
 </body>
 
