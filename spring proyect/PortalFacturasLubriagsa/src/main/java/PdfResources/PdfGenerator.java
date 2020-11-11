@@ -20,6 +20,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
@@ -142,15 +143,13 @@ public class PdfGenerator {
         line2.setLineColor(azul);
         line2.setLineWidth(.5f);
         
-//        DATOS CLIENTE
-//        cell.setNextRenderer(new DottedLineCellRenderer(cell,
-//        new boolean[]{true, true, false, false}));
-
         PdfPTable tDatosCliente = new PdfPTable(2);
         tDatosCliente.getDefaultCell().setBorderWidth(0f);        
         tDatosCliente.setWidthPercentage(100);
+        
         // Set First row as header
         tDatosCliente.setHeaderRows(7);
+        
         tDatosCliente.addCell(generatePhrases("Nombre", "TRACTO PARTES SA DE CV"));
         tDatosCliente.addCell(generatePhrases("No. de certificado del CSD", "0000AAABBBCCCDD1111"));
         tDatosCliente.addCell(generatePhrases("R.F.C.", "XAXX010101000"));
@@ -161,14 +160,9 @@ public class PdfGenerator {
         tDatosCliente.addCell(generatePhrases("Moneda", "MXN"));
         tDatosCliente.addCell(generatePhrases("Municipio", "Zapopan"));
         tDatosCliente.addCell(generatePhrases("Uso CFDI", "Zapopan"));
-        //PHRASE PAIS
-        Phrase ph = new Phrase();
-        ph.add(new Chunk("Estado"+"    ",fRegular));
-        ph.add(new Chunk("Jalisco",fRegularGris));
-        ph.add(new Chunk("    "+"País"+"    ",fRegular));
-        ph.add(new Chunk("México",fRegularGris));
-//        FIN PHRASE PAIS
-        tDatosCliente.addCell(ph);
+        
+        tDatosCliente.addCell(paisEstadoCell());
+        
         tDatosCliente.addCell(generatePhrases("Folio", "1365461258"));
         tDatosCliente.addCell(generatePhrases("C.P.", "45100"));
         tDatosCliente.addCell(generatePhrases("Tipo de cambio", "45100"));
@@ -225,22 +219,40 @@ public class PdfGenerator {
         document.add(pDatosCliente);
         document.add(tDatosCliente);
         document.add(enter);
+        document.add(enter);
         document.add(line2);
         document.add(observaciones);
-        document.add(enter);
+        
         document.add(obsTabla1);
         document.add(line2);
         document.add(obsTabla2);
         document.close();
         
-    }
-    
-    public Phrase generatePhrases(String title, String value){
+    }    
+    public PdfPCell generatePhrases(String title, String value){
+        PdfPCell cell = new PdfPCell();
         Phrase ph = new Phrase();
         ph.add(new Chunk(title+"    ",fRegular));
         ph.add(new Chunk(value,fRegularGris));
-        
-        return ph;
+        cell.addElement(new Phrase(ph));
+        cell.setUseVariableBorders(true);
+        cell.setBorderColor(BaseColor.WHITE);
+        cell.setBorderColorBottom(azul);
+        return cell;        
+    }
+    
+    public PdfPCell paisEstadoCell(){
+        Phrase ph = new Phrase();
+        ph.add(new Chunk("Estado"+"    ",fRegular));
+        ph.add(new Chunk("Jalisco",fRegularGris));
+        ph.add(new Chunk("    "+"País"+"    ",fRegular));
+        ph.add(new Chunk("México",fRegularGris));
+        PdfPCell cell = new PdfPCell();        
+        cell.addElement(new Phrase(ph));
+        cell.setUseVariableBorders(true);
+        cell.setBorderColor(BaseColor.WHITE);
+        cell.setBorderColorBottom(azul);
+        return cell;        
     }
     
     public void bordersBottom(Cell cell){
