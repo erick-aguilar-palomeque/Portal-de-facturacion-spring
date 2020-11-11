@@ -5,17 +5,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- bootstrap jquery -->
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>        
-        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-        <script src="${pageContext.request.contextPath}/js/utileria.js"></script>
-        <!--PDF-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-        <!--<script src="${pageContext.request.contextPath}/js/pdfGenerator.js" type="module"></script>-->
 
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- bootstrap jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+    
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">-->
+    
+    <script src="${pageContext.request.contextPath}/js/utileria.js"></script>
+    <!--PDF-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <!--<script src="${pageContext.request.contextPath}/js/pdfGenerator.js" type="module"></script>-->
+
+    <!--modal-->
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/consultaFacturasStyle.css">
@@ -103,7 +114,6 @@
             <button id="btn_generate_pdf" class="boton-generico" OnClick="generatePdf()"> Generar pdf</button> 
             <div class="table">
                 <table id="tabla-facturas" class="table-bordered table-hover">
-                <!--<table id="tabla-facturas" class= "table table-bordered">-->
                     <thead>
                         <tr class="encabezado">
 
@@ -170,30 +180,6 @@
                             </th>
                         </tr>                        
                     </thead>
-<!--                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <i class="icon-doc-inv"></i>
-                            </td>
-                            <td>
-                                <button class="boton-table">PDF
-                                </button>
-                                <button class="boton-table">XML
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>-->
                 </table>
             </div>
             <!--fin tabla-->
@@ -206,51 +192,49 @@
                 </button>
             </div>
             
-            <div>
-                <object data="${pageContext.request.contextPath}/pdfs/pdf.pdf" type="application/pdf" width="700" height="400">
-                    alt : <a href="test.pdf">pdf.pdf</a>
-                </object>
-            </div>  
-            
-            <div id="botones-factura">
-                <a href="${pageContext.request.contextPath}/pdfs/pdf.pdf" download rel="noopener noreferrer" target="_blank">
-                    <button  class="boton-generico" > PDF </button>   
-                </a>
-                <button  class="boton-generico" > XML </button>   
-                        
+            <!-- Button to Open the Modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+              Open modal
+            </button>
+
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Pdf generado</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+
+                  <!-- Modal body -->
+                  <div class="d-flex flex-column align-items-center" id="modal-body">
+                      <div class="d-flex flex-column align-items-center" id="pdf-container">
+                    <object data="${pageContext.request.contextPath}/pdfs/pdf.pdf" type="application/pdf" width="100%" height="400">
+                        alt : <a href="test.pdf">pdf.pdf</a>
+                    </object>
+                    </div>  
+
+                    <div id="botones-factura">
+                        <a href="${pageContext.request.contextPath}/pdfs/pdf.pdf" download rel="noopener noreferrer" target="_blank">
+                            <button  class="boton-generico" > PDF </button>   
+                        </a>
+                        <button  class="boton-generico" > XML </button>  
+                    </div>
+                  </div>
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" id="close-modal">Cerrar</button>
+                  </div>
+
+                </div>
+              </div>
             </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-
-            <!-- <div class="modal-envio-facturas" id="open-modal-uno">
-                <a href="#close">
-                    <p>Hola</p>
-                </a>
-            </div> -->
-
-
-        </div>
         <!--fin contentenido-->
     </div>
     <!--fin pseudo body-->
-<!--    <button onclick="createPdf()">Crear</button>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-        <script> 
-            function createPdf(){
-                const doc = new jsPDF();
-                doc.text("Hello world!", 10, 10);
-                doc.save("a4.pdf");
-                console.log("termino")
-            }
-        </script>-->
             
     <script src="${pageContext.request.contextPath}/js/menu.js"></script>
 </body>
